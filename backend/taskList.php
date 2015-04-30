@@ -6,14 +6,17 @@
 		try{
 			$con = connect();
 			
-			$q = $con->prepare("SELECT * FROM tasks");
+			$q = $con->prepare("SELECT * FROM tasks t join status s on t.status = s.id");
 			//$q->bindParam(':usuario', $_GET['usuario'], PDO::PARAM_STR);
 			$q->execute();
-			$result = $q->fetchAll(PDO::FETCH_ASSOC);
+			$tasks = $q->fetchAll(PDO::FETCH_ASSOC);
 			$con = null;
 			
-			//echo "print json";
-			echo convertToJson($result);
+			//var_dump($tasks);
+			
+			$tasks = convertToJson($tasks);
+			
+			echo $tasks;
 			
 		}catch (PDOException $e){
 			$msg = 'Query error, '.$e->getMessage();
