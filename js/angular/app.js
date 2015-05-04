@@ -7,6 +7,10 @@ tasksManagerApp.config(
 				templateUrl: 'partials/task-list.html',
 				controller: 'taskListController'
 			}).
+			when('/tasks/add', {
+				templateUrl: 'partials/task-add.html',
+				controller: 'taskAddController'
+			}).
 			otherwise({
 				redirectTo: '/tasks'
 			});
