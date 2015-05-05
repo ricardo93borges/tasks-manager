@@ -1,39 +1,60 @@
 var tasksManagerServices = angular.module('tasksManagerServices', ['ngResource']);
 
-/*
-tasksManagerServices.factory('Task',
-    function($resource){
-        return $resource('backend/taskList.php:id', {id:'id'}, {
-            query: {method:'GET', params:{id:'phones'}, isArray:true}
-        });
-});
-*/
-
+//Task
 tasksManagerServices.factory('Task', function($http){
-	var urlBase = 'backend/tasks.php';
+	var urlBase = 'backend/task/';
 	return {
-		getTasks : function () {
-		    return $http.get(urlBase);
+		getAll : function () {
+		    return $http.get(urlBase+'select.php');
 		},
 		
-		getTask : function (id) {
-		    return $http.get(urlBase + '/' + id);
+		getOne : function (id) {
+		    return $http.get(urlBase + 'select.php/id/' + id);
 		},
 
-		insertTask : function (task) {
-		    return $http.post(urlBase, task);
+		add : function (task) {
+		    return $http.post(urlBase+'add.php', {'task':task});
 		},
 
-		updateTask : function (task) {
-		    return $http.put(urlBase + '/' + task.ID, task)
+		update : function (task) {
+		    return $http.put(urlBase + 'update/id/' + task.ID, task)
 		},
 
-		deleteTask : function (id) {
-		    return $http.delete('backend/delete.php' + '?id=' + id);
+		remove : function (id) {
+		    return $http.delete(urlBase+'delete.php' + '?id=' + id);
 		}
 		
 	};
 });
+
+//Status
+tasksManagerServices.factory('Status', function($http){
+	var urlBase = 'backend/status/';
+	return {
+		getAll : function () {
+		    return $http.get(urlBase+'select.php');
+		},
+		
+		getOne : function (id) {
+		    return $http.get(urlBase + 'select.php/id/' + id);
+		},
+
+		add : function (task) {
+		    return $http.post(urlBase+'add.php', {'task':task});
+		},
+
+		update: function (task) {
+		    return $http.put(urlBase + 'update/id/' + task.ID, task)
+		},
+
+		remove : function (id) {
+		    return $http.delete(urlBase+'delete.php' + '?id=' + id);
+		}
+		
+	};
+});
+
+
 
 /*
 

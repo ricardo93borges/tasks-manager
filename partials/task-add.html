@@ -1,2 +1,79 @@
 <h2>Add Task</h2>
 
+<form name="add">
+	  <div class="row">
+	    <div class="large-6 columns">
+	      <label>Name
+	        <input ng-model="task.name" type="text" maxlength="255" placeholder="Name" required/>
+	      </label>
+	    </div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="large-6 columns">
+	      <label>Description
+	        <textarea ng-model="task.description" maxlength="255" placeholder="Description"></textarea>
+	      </label>
+	    </div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="large-6 columns">
+	      <label>Status</label>
+	      	<select ng-model="task.status" name="status">
+	      		<option ng-repeat="s in status" value="{{ s.id }}">{{ s.name }}</option>
+	      	</select>
+	    </div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="large-6 columns">
+	      <label>Finished
+			<input ng-model="task.finished" type="text" placeholder="Finished" class="date" required/>
+	      </label>
+	    </div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="large-6 columns">
+	      <label>Time
+			<input ng-model="task.time" type="text" class="time" placeholder="Time" required/>
+	      </label>
+	    </div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="large-6 columns" id="activities">
+	      <label>Activities<a alt="Add activity" id="add-activity" class="fa fa-plus right" ng-click="addActivity()"></a></label>
+	      	<div class="row collapse postfix-radius">
+	    		<div class="small-11 columns">
+	        		<input ng-keyup="updateActivities(0, activities_0)" ng-model="activities_0" name="activity" type="text" placeholder="Activity"/>
+	        	</div>
+	        </div>
+	    </div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="large-6 columns">
+	      <label>Observation
+	        <textarea ng-model="task.observation" type="text" maxlength="500" placeholder="Observation"></textarea>
+	      </label>
+	    </div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="large-6 columns">
+	        <input ng-click="insert(task)"type="submit" name="add" value="Add" class="button small radius right" />
+	    </div>
+	  </div>
+</form>
+
+<script>
+	$('.date').datetimepicker();
+	
+	$('.time').datetimepicker({
+		datepicker:false,
+		format:'H:i',
+		step:5
+	});
+</script>

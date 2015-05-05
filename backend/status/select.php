@@ -1,22 +1,21 @@
 <?php 
 
-	include_once 'connection.php';
+	include_once '../connection.php';
 	
-	function tasks(){
+	function select(){
 		try{
 			$con = connect();
 			
-			$q = $con->prepare("SELECT * FROM tasks t join status s on t.status = s.id");
-			//$q->bindParam(':usuario', $_GET['usuario'], PDO::PARAM_STR);
+			$q = $con->prepare("SELECT 	id, name FROM status");
 			$q->execute();
-			$tasks = $q->fetchAll(PDO::FETCH_ASSOC);
+			$records = $q->fetchAll(PDO::FETCH_ASSOC);
 			$con = null;
 			
 			//var_dump($tasks);
 			
-			$tasks = convertToJson($tasks);
+			$records = convertToJson($records);
 			
-			echo $tasks;
+			echo $records;
 			
 		}catch (PDOException $e){
 			$msg = 'Query error, '.$e->getMessage();
@@ -70,22 +69,6 @@
 		} 
 	}
 	
-	function delete(){
-		$id = $_POST['id'];
-		
-		try {
-			$c = getConnection();
-			$stat = $c->prepare('DELETE FROM tasks WHERE id = :id');
-			$stat->bindParam(':id', $id);
-			$stat->execute();
-			$c = null;
-			echo json_encode(array('return'=>'true', 'message'=>'Arquivo deletado'));
-		} catch (Exception $e) {
-			$msg = 'Error on delete, '.$e->getMessage();
-			return json_encode(array('status'=>'error', 'message'=>$msg));
-		}
-	}
-	
-	tasks();
+	select();
 	
 ?>
