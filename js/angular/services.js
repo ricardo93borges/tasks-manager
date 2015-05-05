@@ -9,7 +9,7 @@ tasksManagerServices.factory('Task', function($http){
 		},
 		
 		getOne : function (id) {
-		    return $http.get(urlBase + 'select.php/id/' + id);
+		    return $http.get(urlBase + 'select.php?id=' + id);
 		},
 
 		add : function (task) {

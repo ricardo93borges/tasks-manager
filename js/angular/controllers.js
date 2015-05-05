@@ -1,6 +1,6 @@
 var tasksManagerControllers = angular.module('tasksManagerControllers', []);
 
-tasksManagerApp.controller('taskListController', function ($scope, Task) {
+tasksManagerApp.controller('taskIndexController', function ($scope, Task) {
 
 	$scope.tasks = [];
 	getTasks();
@@ -21,7 +21,7 @@ tasksManagerApp.controller('taskListController', function ($scope, Task) {
                 $scope.tasks = response;
             })
             .error(function (response) {
-                $scope.status = 'Unable to load customer data: ' + response.message;
+                console.log(response.message);
             });
     }
 
@@ -114,4 +114,59 @@ tasksManagerApp.controller('taskAddController', function ($scope, $compile, Task
 	        });
 	}
 	
+});
+
+tasksManagerApp.controller('taskEditController', function ($scope, $routeParams, Task) {
+	
+	var id = $routeParams.id;
+	
+	$scope.task;
+	getTask(id);
+	
+	$scope.deleteTask = function(id){
+		Task.remove(id)
+	        .success(function (response) {
+	            getTasks();
+	        })
+	        .error(function (response) {
+	        	console.log(response);
+	        });	
+	}
+	
+	function getTask(id){
+        Task.getOne(id)
+            .success(function (response) {
+                $scope.task = response;
+            })
+            .error(function (response) {
+                console.log(response.message);
+            });
+    }
+});
+
+tasksManagerApp.controller('taskViewController', function ($scope, $routeParams, Task) {
+	var id = $routeParams.id;
+	
+	$scope.task;
+	getTask(id);
+	
+	$scope.deleteTask = function(id){
+		Task.remove(id)
+	        .success(function (response) {
+	            getTasks();
+	        })
+	        .error(function (response) {
+	        	console.log(response);
+	        });	
+	}
+	
+	function getTask(id){
+        Task.getOne(id)
+            .success(function (response) {
+                $scope.task = response;
+            })
+            .error(function (response) {
+                console.log(response.message);
+            });
+    }
 });

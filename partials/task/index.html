@@ -1,0 +1,22 @@
+<h2>Tasks</h2>
+
+<table id="tasks">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Status</th>
+			<th>Name</th>
+			<th><i class="fa fa-pencil"></i></th>
+			<th><i class="fa fa-trash"></i></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="task in tasks" >
+			<td>{{ task.id }}</td>
+			<td>{{ task.statusName }}</td>
+			<td><a href="#/tasks/view/{{task.id}}">{{ task.name }}</a></td>
+			<td><a href="#/tasks/edit/{{task.id}}" ><i class="fa fa-pencil"></i></a></td>
+			<td><a ng-click="deleteTask(task.id)" ><i class="fa fa-trash"></i></a></td>
+		</tr>
+	</tbody>
+</table>

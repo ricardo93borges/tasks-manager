@@ -6,11 +6,17 @@
 		try{
 			$con = connect();
 			
+			$where = "";
+			if(isset($_GET['id'])){
+				$id = $_GET['id'];
+				$where = " WHERE t.id = ".$id;
+			}
+			
 			$q = $con->prepare("SELECT 	t.id, t.status, t.created, t.modified, t.finished, t.name, 
 										t.description, t.time, t.activities, t.observation, 
 										s.id as statusId, s.name as statusName 
-								 		FROM tasks t join status s on t.status = s.id");
-			//$q->bindParam(':usuario', $_GET['usuario'], PDO::PARAM_STR);
+								 		FROM tasks t join status s on t.status = s.id".$where);
+		
 			$q->execute();
 			$tasks = $q->fetchAll(PDO::FETCH_ASSOC);
 			$con = null;
