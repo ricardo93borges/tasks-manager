@@ -38,15 +38,23 @@
 	 */
 	function convertToJson($collection){
 		try{
+			
 			$json 	= json_encode($collection);
 			$jError = json_last_error();
 			
+			if(isset($_GET['id'])){
+				$json 	= json_encode($collection[0]);
+			}
 			//echo ", jError: ".$jError;
 			
 			//Bad utf-8 format
 			if($jError == 5){
 				$res = 	formatCollection($collection);
 				$json = json_encode($res);
+
+				if(isset($_GET['id'])){
+					$json 	= json_encode($res[0]);
+				}
 			}
 			
 			return $json;
