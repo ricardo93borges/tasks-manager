@@ -1,4 +1,4 @@
-var tasksManagerApp = angular.module('tasksManagerApp', ['ngRoute', 'tasksManagerServices']);
+var tasksManagerApp = angular.module('tasksManagerApp', ['ngRoute', 'tasksManagerServices', 'tasksManagerDirectives']);
 
 tasksManagerApp.config(
 		function($routeProvider) {

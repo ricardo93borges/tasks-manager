@@ -53,3 +53,43 @@ tasksManagerServices.factory('Status', function($http){
 		
 	};
 });
+
+tasksManagerServices.factory("flash", function($rootScope){
+	var message;
+	var msgClass = "inactive";
+	/*
+	 $rootScope.$on("$routeChangeSuccess", function() {
+		 msgClass = "inactive ";
+	 });
+	*/
+	return{
+		setSuccessMessage: function(msg){
+			this.message = msg;
+			this.showAlert('success');
+		},
+		setErrorMessage: function(msg){
+			this.message = msg;
+			this.showAlert('alert');
+		},
+		setInfoMessage: function(msg){
+			this.message = msg;;
+			this.showAlert('info');
+		},
+		setWarningMessage: function(msg){
+			this.message = msg;
+			this.showAlert('warning');
+		},
+		getMessage: function(msg){
+			return this.message;
+		},
+		closeAlert: function(){
+			this.msgClass = "inactive ";
+		},
+		showAlert:  function(classe){
+			this.msgClass = "active "+classe;
+		},
+		refresh:  function(classe){
+			this.closeAlert();
+		}
+	}
+});

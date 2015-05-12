@@ -27,8 +27,10 @@ tasksManagerApp.controller('taskIndexController', function ($scope, Task) {
 
 });
 
-tasksManagerApp.controller('taskAddController', function ($scope, $compile, Task, Status) {
-
+tasksManagerApp.controller('taskAddController', function ($scope, $compile, Task, Status, flash) {
+	$scope.flash = flash;
+	flash.refresh();
+	
 	$scope.status = [];
 	$scope.activities = {};
 	$scope.count = 1;
@@ -104,17 +106,19 @@ tasksManagerApp.controller('taskAddController', function ($scope, $compile, Task
 		
 		Task.add(task)
 	        .success(function (response) {
-	        	console.log(response);
+	           	flash.setSuccessMessage(response.message);
 	        })
 	        .error(function (response) {
-	        	console.log(response);
+	           	flash.setErrorMessage(response.message);
 	        });
 	}
 	
 });
 
-tasksManagerApp.controller('taskEditController', function ($scope, $compile, $routeParams, Task, Status) {
-	
+tasksManagerApp.controller('taskEditController', function ($scope, $compile, $routeParams, Task, Status, flash){
+	$scope.flash = flash;
+	flash.refresh();
+
 	var id = $routeParams.id;
 	
 	$scope.task;
@@ -199,10 +203,10 @@ tasksManagerApp.controller('taskEditController', function ($scope, $compile, $ro
 		
 		Task.update(task)
 	        .success(function (response) {
-	        	console.log(response);
+	        	flash.setSuccessMessage(response.message);
 	        })
 	        .error(function (response) {
-	        	console.log(response);
+	        	flash.setErrorMessage(response.message);
 	        });
 	}
 	
