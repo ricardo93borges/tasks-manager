@@ -4,12 +4,26 @@
 	text-align:center; 
 	border-radius: 6px;
 }
-
 .active{
 	display:block;
 
 }
-
 .inactive{
 	display:none;
+}
+.underlined{
+	border-bottom: 1px solid #CCC;
+	padding-bottom:5px;
+	-webkit-box-shadow: -1px 29px 37px -23px rgba(0,0,0,0.6);
+	-moz-box-shadow: -1px 29px 37px -23px rgba(0,0,0,0.6);
+	box-shadow: -1px 29px 37px -23px rgba(0,0,0,0.6);
+}
+.left-line{
+	border-right: 1px solid #CCC;
+	padding-right:5px;
+}
+.bottom-shadow{
+	-webkit-box-shadow: -1px 29px 37px -23px rgba(0,0,0,0.6);
+	-moz-box-shadow: -1px 29px 37px -23px rgba(0,0,0,0.6);
+	box-shadow: -1px 29px 37px -23px rgba(0,0,0,0.6);
 }

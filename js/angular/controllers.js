@@ -1,9 +1,15 @@
 var tasksManagerControllers = angular.module('tasksManagerControllers', []);
 
-tasksManagerApp.controller('taskIndexController', function ($scope, Task) {
+tasksManagerApp.controller('taskIndexController', function ($scope, Task, Status) {
 
-	$scope.tasks = [];
+	$scope.currentPage 	= 1;
+	$scope.pageSize 	= 10;
+	$scope.tasks 		= [];
+	$scope.status 		= [];
+	$scope.params 		= {'status':'All'};
+	
 	getTasks();
+	getStatus();
 	
 	$scope.deleteTask = function(id){
 		Task.remove(id)
@@ -15,6 +21,17 @@ tasksManagerApp.controller('taskIndexController', function ($scope, Task) {
 	        });	
 	}
 	
+	$scope.filterBy = function (params){
+		console.log(params);
+		Task.filterBy(params)
+	        .success(function (response) {
+	            $scope.tasks = response;
+	        })
+	        .error(function (response) {
+	            console.log(response.message);
+	        });
+	}
+	
 	function getTasks(){
         Task.getAll()
             .success(function (response) {
@@ -22,6 +39,17 @@ tasksManagerApp.controller('taskIndexController', function ($scope, Task) {
             })
             .error(function (response) {
                 console.log(response.message);
+            });
+    }
+	
+	function getStatus(){
+		Status.getAll()
+            .success(function (response) {
+                $scope.status = response;
+                $scope.status.push({'id':'All','name':'All', 'selected':'selected'});
+            })
+            .error(function (response) {
+                $scope.status = 'Unable to load customer data: ' + response.message;
             });
     }
 
@@ -253,6 +281,7 @@ tasksManagerApp.controller('taskViewController', function ($scope, $routeParams,
 	
 	$scope.task;
 	$scope.status;
+	$scope.activities = [];
 	getTask(id);
 	getStatus();
 	
@@ -266,11 +295,19 @@ tasksManagerApp.controller('taskViewController', function ($scope, $routeParams,
 	        });	
 	}
 	
+	function setActivities(activities){
+		var act = activities.split(';');
+		//console.log(act);
+		for(i=0; i < act.length-1; i++){
+			 $scope.activities[i] = act[i];
+		}
+	}
+	
 	function getTask(id){
         Task.getOne(id)
             .success(function (response) {
             	$scope.task = response;
-            		
+            	setActivities($scope.task.activities);
             })
             .error(function (response) {
                 console.log(response.message);

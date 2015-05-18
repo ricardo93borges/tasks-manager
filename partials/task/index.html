@@ -1,22 +1,53 @@
 <h2>Tasks</h2>
+<div class="large-3 right">
+	<h5>Filter by:
+ 		<a href="#" ng-click="filterBy(params)" id="filter-search-icon">
+			<i class="fa fa-search right"></i>
+		</a>
+	</h5>
+	<form name="filterTasks">
+		<label for="status">Status</label>
+		<select ng-model="params.status" name="status">
+			<option ng-repeat="s in status" value="{{ s.id }}" selected="{{s.selected}}">{{ s.name }}</option>
+		</select>
+		
+		<label for="created">Creation date</label>
+		<input ng-model="params.created_start" type="text" placeholder="Start" class="date" />
+		<input ng-model="params.created_end" type="text" placeholder="End" class="date" />
+		
+		<label for="finished">Completion date</label>
+		<input ng-model="params.finished_start" type="text" placeholder="Start" class="date" />
+		<input ng-model="params.finished_end" type="text" placeholder="End" class="date" />
+		
+		<input ng-click="filterBy(params)" type="submit" name="send" value="Filter" class="button radius tiny right"/>
+	</form>
+	
+</div>
+	<table id="tasks">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Status</th>
+				<th>Name</th>
+				<th><i class="fa fa-pencil"></i></th>
+				<th><i class="fa fa-trash"></i></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr dir-paginate="task in tasks | itemsPerPage: pageSize" current-page="currentPage">
+			<!--tr ng-repeat="task in tasks" -->
+				<td>{{ task.id }}</td>
+				<td>{{ task.statusName }}</td>
+				<td><a href="#/tasks/view/{{task.id}}">{{ task.name }}</a></td>
+				<td><a href="#/tasks/edit/{{task.id}}" ><i class="fa fa-pencil"></i></a></td>
+				<td><a ng-click="deleteTask(task.id)" ><i class="fa fa-trash"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="partials/pagination-controls.html"></dir-pagination-controls>
+</div>
 
-<table id="tasks">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Status</th>
-			<th>Name</th>
-			<th><i class="fa fa-pencil"></i></th>
-			<th><i class="fa fa-trash"></i></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="task in tasks" >
-			<td>{{ task.id }}</td>
-			<td>{{ task.statusName }}</td>
-			<td><a href="#/tasks/view/{{task.id}}">{{ task.name }}</a></td>
-			<td><a href="#/tasks/edit/{{task.id}}" ><i class="fa fa-pencil"></i></a></td>
-			<td><a ng-click="deleteTask(task.id)" ><i class="fa fa-trash"></i></a></td>
-		</tr>
-	</tbody>
-</table>
+<script>
+$('.date').datetimepicker();
+$('#filter-search-icon').click(function(event){event.preventDefault()});
+</script>

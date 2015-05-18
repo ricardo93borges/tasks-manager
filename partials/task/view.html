@@ -1,3 +1,20 @@
-<h2>View Task</h2>
+<h3 class="underlined">{{ task.name }}</h3>
 
-<p>{{ task | json}}</p>
+<div class="large-8 columns">
+	<p>{{ task.description }}</p>
+	
+	<p class="underlined"><b>Atividades:</b></p>
+	<ul>
+		<li ng-repeat="a in activities">{{ a }}</li>
+	</ul>
+	<p class="underlined"><b>Observações:</b></p>
+	<p>{{ task.observation }}</p>
+</div>
+
+<div class="large-4 columns">
+	<p class="underlined bottom-shadow"><b>Status:</b><br/>{{ task.statusName }}</p>
+	<p class="underlined bottom-shadow"><b>Created:</b><br/>{{ task.created | date:'medium'}}</p>
+	<p class="underlined bottom-shadow"><b>Modified:</b><br/>{{ task.modified }}</p>
+	<p class="underlined bottom-shadow"><b>Finished:</b><br/>{{ task.finished }}</p>
+	<p class="underlined bottom-shadow"><b>Time:</b><br/>{{ task.time }}</p>
+</div>

@@ -1,7 +1,6 @@
-var tasksManagerApp = angular.module('tasksManagerApp', ['ngRoute', 'tasksManagerServices', 'tasksManagerDirectives']);
+var tasksManagerApp = angular.module('tasksManagerApp', ['ngRoute', 'tasksManagerServices', 'tasksManagerDirectives', 'angularUtils.directives.dirPagination']);
 
-tasksManagerApp.config(
-		function($routeProvider) {
+tasksManagerApp.config(['$routeProvider', function($routeProvider) {
 			$routeProvider.
 			when('/tasks', {
 				templateUrl: 'partials/task/index.html',
@@ -22,4 +21,4 @@ tasksManagerApp.config(
 			otherwise({
 				redirectTo: '/tasks'
 			});
-      });
+      }]);

@@ -8,6 +8,10 @@ tasksManagerServices.factory('Task', function($http){
 		    return $http.get(urlBase+'select.php');
 		},
 		
+		filterBy : function (params) {
+		    return $http.post(urlBase+'filter.php', params);
+		},
+		
 		getOne : function (id) {
 		    return $http.get(urlBase + 'select.php?id=' + id);
 		},
